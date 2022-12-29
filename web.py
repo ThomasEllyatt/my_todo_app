@@ -7,6 +7,7 @@ def add_todo_local():
     new_todo = st.session_state["new_todo"] + "\n"
     todos.append(new_todo)
     todo_functions.update_todo(filename, todos)
+    st.session_state["new_todo"] = ""
     return todos
 
 
@@ -20,19 +21,20 @@ st.subheader("This is my todo app")
 st.write("This app is to increase your productivity")
 # st.snow()
 
+enter_todo = st.text_input(label="Enter a todo: ",
+                           placeholder="Add a new todo...",
+                           on_change=add_todo_local,
+                           key="new_todo")
+
 for index, todo in enumerate(todos):
-    checkbox = st.checkbox(todo, key=todo)
+    checkbox = st.checkbox(todo, key=f"{index} {todo}")
+    new_key = f"{index} {todo}"
     if checkbox:
-        print(checkbox)
+        print(st.session_state)
         todos.pop(index)
         todo_functions.update_todo(filename, todos)
-        del st.session_state[todo]
+        del st.session_state[new_key]
+        del st.session_state["new_todo"]
         st.experimental_rerun()
 
-st.text_input(label="Enter a todo: ",
-              placeholder="Add a new todo...",
-              on_change=add_todo_local,
-              key="new_todo",
-              value="")
-
-st.session_state
+print(st.session_state)
