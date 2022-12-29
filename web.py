@@ -16,12 +16,12 @@ def add_todo_local():
 filename = "todos.txt"
 todos = todo_functions.get_todos(filename)
 
-st.title("My Todo App")
-st.subheader("This is my todo app")
-st.write("This app is to increase your productivity")
+st.title("Tom's Tasty Tasks")
+st.subheader("Le sub-header")
+st.write("Put shit that needs doing down below")
 # st.snow()
 
-enter_todo = st.text_input(label="Enter a todo: ",
+st.text_input(label="Enter a todo: ",
                            placeholder="Add a new todo...",
                            on_change=add_todo_local,
                            key="new_todo")
